@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>TIEMPO</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            //http://api.openweathermap.org/data/2.5/forecast/daily?id=524901&APPID={INSERTAPIKEY}
+            // Asegúrese de poner su clave API única en la URL (sacando los corchetes).
+             // &APPID={INSERTAPIKEY} deberá estar al final de cada URL a la que acceda a continuación y en la asignación.
+
+            $(document).ready(function() {
+                $('form').submit(function() {
+                    url = "http://api.openweathermap.org/data/2.5/weather?q="+$('#ciudad').val()+"&APPID=5a9722411dfd3434daf4b1f32e04681a";
+                    // your code here (build up your url)
+                    $.get(url, function(res) {
+                        $("#ciudad").html("<h3>Ciudad:"+res.name+"</h3>");
+                        $("#temperatura").html("<h3>Temperatura:"+res.main.temp+"°F</h3>");
+                        $("#coordenadas").html("<h3>Coordenadas:<br> Longitud:"+res.coord.lon+"<br> Latitud:"+res.coord.lat+"</h3>");
+                    }, 'json');
+                    // don't forget to return false so the page doesn't refresh
+                    return false;
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="contenedor">
+            <h1>PRONÓSTICO DEL TIEMPO</h1>
+            <form>
+                <label for="ciudad">Ciudad:</label>
+                <input type="text" id="ciudad" name="ciudad">
+                <input type="submit" value="consultar">
+            </form>
+            <h3 id="ciudad"></h3>
+            <h3 id="temperatura"></h3>
+            <h3 id="coordenadas"></h3>
+        </div>
+    </body>
+</html>
